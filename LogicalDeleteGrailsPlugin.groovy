@@ -4,6 +4,7 @@ import com.nanlabs.grails.plugin.logicaldelete.DeleteHibernateFilterConfigurator
 import com.nanlabs.grails.plugin.logicaldelete.DeleteHibernateFilterEnabler
 import com.nanlabs.grails.plugin.logicaldelete.LogicalDeleteDomainClassEnhancer
 
+// TODO
 class LogicalDeleteGrailsPlugin {
 	def version = "0.2"
 	def grailsVersion = "2.0 > *"
@@ -24,7 +25,7 @@ class LogicalDeleteGrailsPlugin {
 
 		logicDeleteHibernateFilter(FilterDefinitionFactoryBean) {
 			defaultFilterCondition = "deleted = :deletedValue"
-			parameterTypes = [deletedValue: "boolean"]
+			parameterTypes = [deletedValue: "java.util.Date"]
 		}
 
 		deleteHibernateFilterConfigurator(DeleteHibernateFilterConfigurator) {

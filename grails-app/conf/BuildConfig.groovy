@@ -18,6 +18,7 @@ grails.project.dependency.resolution = {
 		build ':release:2.2.1', ':rest-client-builder:1.0.3', {
 			export = false
 		}
+		//compile(":hibernate:3.6.10.9") { export = false }
 		compile(":hibernate:$grailsVersion") { export = false }
 		compile(':hawk-eventing:0.5.1') {
 			excludes 'svn'

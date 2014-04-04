@@ -14,7 +14,7 @@ import org.codehaus.groovy.transform.GroovyASTTransformation;
 @GroovyASTTransformation(phase = CompilePhase.CANONICALIZATION)
 public class LogicalDeleteASTTRansformation implements ASTTransformation{
 
-	public final static String DELETED_FIELD_NAME = "deleted";
+	public final static String DELETED_FIELD_NAME = "date_deleted";
 	public final static String LIST_DELETED_METHOD_NAME = "listDeleted";
 	public final static int CLASS_NODE_ORDER = 1;
 
@@ -33,7 +33,7 @@ public class LogicalDeleteASTTRansformation implements ASTTransformation{
 
 	private void addDeletedProperty(ClassNode node) {
 		if(!GrailsASTUtils.hasOrInheritsProperty(node, DELETED_FIELD_NAME)){
-			node.addProperty(DELETED_FIELD_NAME, Modifier.PUBLIC, new ClassNode(Boolean.class), ConstantExpression.FALSE, null, null);
+			node.addProperty(DELETED_FIELD_NAME, Modifier.PUBLIC, new ClassNode(java.util.Date.class), ConstantExpression.NULL, null, null);
 		}
 	}
 	

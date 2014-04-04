@@ -43,7 +43,7 @@ class LogicalDeleteDomainClassEnhancer {
 				closure()
 			} finally {
 				delegate.withSession { session ->
-					session.enableFilter(logicDeleteHibernateFilter.filterName).setParameter(DELETED_PARAM, false)
+					session.enableFilter(logicDeleteHibernateFilter.filterName).setParameter(DELETED_PARAM, null)
 				}
 			}
 		}		
@@ -51,6 +51,7 @@ class LogicalDeleteDomainClassEnhancer {
 
 	private static void changeDeleteMethod(clazz) {
 		log.debug "Adding logic delete support to $clazz"
+		//def gormUpdateMethod = clazz.metaClass.getMetaMethod('update')
 		def gormSaveMethod = clazz.metaClass.getMetaMethod('save')
 		def gormDeleteMethod = clazz.metaClass.getMetaMethod('delete')
 		def gormDeleteWithArgsMethod = clazz.metaClass.getMetaMethod('delete', Map)
@@ -76,7 +77,8 @@ class LogicalDeleteDomainClassEnhancer {
 
 	private static deleteAction = { aSave, aDelegate, args = null ->
 		log.debug "Applying logical delete to domain class ${aDelegate.class}"
-		aDelegate.deleted = true
+		//aDelegate.deleted = true
+		aDelegate.deleted = new java.util.Date()
 		if (args) aSave.invoke(aDelegate) else aSave.invoke(aDelegate, args)
 	}
 }
