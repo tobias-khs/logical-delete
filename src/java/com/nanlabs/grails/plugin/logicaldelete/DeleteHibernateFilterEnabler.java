@@ -17,7 +17,9 @@ public class DeleteHibernateFilterEnabler {
 	@Consuming("hibernate.sessionCreated")
 	public void enableDeleteHibernateFilter(Event event){
 		Session session = (Session) event.getPayload();
-		session.enableFilter(deleteHibernateFilter.getFilterName()).setParameter(DELETED_PARAM, null);
+		// Cannot set null
+		session.enableFilter(deleteHibernateFilter.getFilterName()).setParameter(DELETED_PARAM, new java.util.Date());
+		//session.enableFilter(deleteHibernateFilter.getFilterName()).setParameter(DELETED_PARAM, null);
 	}
 
 	public void setDeleteHibernateFilter(FilterDefinition deleteHibernateFilter) {

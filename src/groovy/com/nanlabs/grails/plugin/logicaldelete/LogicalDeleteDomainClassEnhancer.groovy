@@ -43,7 +43,8 @@ class LogicalDeleteDomainClassEnhancer {
 				closure()
 			} finally {
 				delegate.withSession { session ->
-					session.enableFilter(logicDeleteHibernateFilter.filterName).setParameter(DELETED_PARAM, null)
+					//session.enableFilter(logicDeleteHibernateFilter.filterName).setParameter(DELETED_PARAM, null)
+					session.enableFilter(logicDeleteHibernateFilter.filterName).setParameter(DELETED_PARAM, new java.util.Date())
 				}
 			}
 		}		

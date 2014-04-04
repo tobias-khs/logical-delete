@@ -24,7 +24,8 @@ class LogicalDeleteGrailsPlugin {
 	def doWithSpring = {
 
 		logicDeleteHibernateFilter(FilterDefinitionFactoryBean) {
-			defaultFilterCondition = "deleted = :deletedValue"
+			//defaultFilterCondition = "deleted = :deletedValue"
+			defaultFilterCondition = "deleted IS NULL"
 			parameterTypes = [deletedValue: "java.util.Date"]
 		}
 
@@ -41,4 +42,27 @@ class LogicalDeleteGrailsPlugin {
 		LogicalDeleteDomainClassEnhancer.setLogicDeleteFilter(ctx.getBean("logicDeleteHibernateFilter"))
 		LogicalDeleteDomainClassEnhancer.enhance(application.domainClasses)
 	}
+	
+	def doWithWebDescriptor = { xml ->
+        // TODO Implement additions to web.xml (optional), this event occurs before
+    }
+
+    def doWithApplicationContext = { ctx ->
+        // TODO Implement post initialization spring config (optional)
+    }
+
+    def onChange = { event ->
+        // TODO Implement code that is executed when any artefact that this plugin is
+        // watching is modified and reloaded. The event contains: event.source,
+        // event.application, event.manager, event.ctx, and event.plugin.
+    }
+
+    def onConfigChange = { event ->
+        // TODO Implement code that is executed when the project configuration changes.
+        // The event is the same as for 'onChange'.
+    }
+
+    def onShutdown = { event ->
+        // TODO Implement code that is executed when the application shuts down (optional)
+    }
 }
